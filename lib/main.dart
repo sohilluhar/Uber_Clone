@@ -2,6 +2,8 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 
+import 'help.dart';
+
 void main() => runApp(MyApp());
 
 class MyApp extends StatefulWidget {
@@ -24,6 +26,9 @@ class _MyAppState extends State<MyApp> {
         theme: ThemeData(
           primaryColor: Colors.black,
         ),
+        routes: {
+          '/Help': (context) => new Help(),
+        },
         home: Scaffold(
           backgroundColor: Colors.transparent,
           appBar: AppBar(),
@@ -74,6 +79,7 @@ class _MyAppState extends State<MyApp> {
                               child: Padding(
                                   padding: EdgeInsets.fromLTRB(20, 0, 0, 15),
                                   child: RaisedButton(
+                                    onPressed: null,
                                     color: Colors.black12,
                                     child: Text(
                                       "Where to  ?",
@@ -91,6 +97,9 @@ class _MyAppState extends State<MyApp> {
                               child: Padding(
                                   padding: EdgeInsets.fromLTRB(5, 0, 20, 15),
                                   child: RaisedButton(
+                                    onPressed: () {
+                                      Navigator.pushNamed(context, "/Help");
+                                    },
                                     color: Colors.black12,
                                     child: Text(
                                       "Schedule",
@@ -168,6 +177,17 @@ class _MyAppState extends State<MyApp> {
                         )
                       ]),
                 ),
+//                FloatingActionButton(
+//                  onPressed: () {
+//                    Fluttertoast.showToast(
+//                        msg: "Help clicked",
+//                        toastLength: Toast.LENGTH_LONG,
+//                        gravity: ToastGravity.CENTER,
+//                        backgroundColor: Colors.blue,
+//                        textColor: Colors.red,
+//                        fontSize: 20.0);
+//                  },
+//                ),
               ]),
           drawer: Drawer(
             // Add a ListView to the drawer. This ensures the user can scroll
@@ -251,8 +271,16 @@ class _MyAppState extends State<MyApp> {
                     style: new TextStyle(fontSize: 22),
                   ),
                   onTap: () {
-                    // Update the state of the app
-                    // ...
+//                    // Update the state of the
+//                    Fluttertoast.showToast(
+//                        msg: "Help clicked",
+//                        toastLength: Toast.LENGTH_LONG,
+//                        gravity: ToastGravity.CENTER,
+//                        backgroundColor: Colors.blue,
+//                        textColor: Colors.red,
+//                        fontSize: 20.0);
+                    Navigator.pushNamed(context, "/Help");
+
                     // Then close the drawer
                     Navigator.pop(context);
                   },
