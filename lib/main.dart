@@ -1,4 +1,5 @@
-import 'package:flutter/cupertino.dart';
+//import 'package:color/color.dart';
+//import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 
@@ -23,8 +24,6 @@ class MyApp extends StatefulWidget {
   @override
   _MyAppState createState() => _MyAppState();
 }
-
-final Set<Marker> _markers = {};
 
 //create google map class
 class _MyAppState extends State<MyApp> {
@@ -88,17 +87,16 @@ class _MyAppState extends State<MyApp> {
                               child: new Container(
                                   height: 60,
                                   width: 115,
-                                  color: Colors.blueGrey,
+//                                  color: Colors.grey,
                                   child: RaisedButton(
+//                                    textColor: Colors.black,
+//                                    color: Color.fromRGBO(255, 0, 255, 1),
                                     onPressed: null,
-                                    color: Colors.black12,
                                     child: Text(
                                       "Where to  ?",
                                       textAlign: TextAlign.center,
                                       style: new TextStyle(
-                                        color: Colors.black,
-                                        fontSize: 18.0,
-                                      ),
+                                          fontSize: 18.0, color: Colors.white),
                                     ),
                                   )))),
                       new Container(
@@ -106,21 +104,21 @@ class _MyAppState extends State<MyApp> {
                           height: 60.0,
                           width: 135.0,
                           child: Padding(
-                              padding: EdgeInsets.fromLTRB(5, 0, 20, 15),
+                              padding: EdgeInsets.fromLTRB(2, 0, 20, 15),
                               child: new Container(
                                   height: 60,
-                                  width: 115,
-                                  color: Colors.blueGrey,
+                                  width: 132,
+//                                  color: Colors.green,
                                   child: RaisedButton(
+                                    textColor: Colors.white,
+//                                    color: Colors.black,
+//                                    color: Color.fromRGBO(0, 0, 0, 1),
                                     onPressed: null,
-                                    color: Colors.black12,
                                     child: Text(
                                       "Schedule",
                                       textAlign: TextAlign.center,
                                       style: new TextStyle(
-                                        color: Colors.black,
-                                        fontSize: 18.0,
-                                      ),
+                                          fontSize: 18.0, color: Colors.white),
                                     ),
                                   )))),
                     ]),
@@ -477,7 +475,7 @@ class FreeRides extends StatelessWidget {
                     //TODO: Replase Rs with ruppes
                     child: new Text("rides to try Uber,worth up to Rs 25 each!",
                         style:
-                            new TextStyle(color: Colors.grey, fontSize: 14.0))))
+                            new TextStyle(color: Colors.grey, fontSize: 18.0))))
           ]),
           new Row(children: <Widget>[
             new Container(
@@ -488,12 +486,59 @@ class FreeRides extends StatelessWidget {
                             new TextStyle(color: Colors.blue, fontSize: 16.0))))
           ]),
           new Row(children: <Widget>[
+            new Container(
+                child: Padding(
+                    padding: EdgeInsets.fromLTRB(10, 0, 0, 0),
+                    child: new Image.asset(
+                      'assets/images/friend.jpg',
+                      width: 350,
+                      height: 280,
+                    )))
+          ]),
+          new Row(children: <Widget>[
+            new Container(
+                child: Padding(
+                    padding: EdgeInsets.fromLTRB(20, 0, 0, 0),
+                    child: new Text("Share Your Invite Code",
+                        style:
+                            new TextStyle(color: Colors.grey, fontSize: 16.0))))
+          ]),
+          new Row(children: <Widget>[
+            new Container(
+                padding: EdgeInsets.fromLTRB(20, 10, 0, 5),
+                margin: EdgeInsets.fromLTRB(20, 10, 0, 5),
+                decoration:
+                    BoxDecoration(border: Border.all(color: Colors.black)),
+                child: new Row(children: <Widget>[
+                  new Text(
+                    "wmp98it                                             ",
+                    style: new TextStyle(
+                      color: Colors.grey,
+                      fontSize: 18.0,
+                    ),
+                  ),
+                  Align(
+                      alignment: Alignment.centerLeft,
+                      child: Icon(Icons.share)),
+                ]))
+          ]),
+          new Row(children: <Widget>[
             Padding(
-                padding: EdgeInsets.fromLTRB(20, 15, 0, 0),
+                padding: EdgeInsets.fromLTRB(20, 5, 0, 0),
                 child: new Container(
                     color: Colors.black,
                     width: 320,
                     child: new RaisedButton(
+                      onPressed: () {
+//                        AdvancedShare.whatsapp(
+//                            msg:
+//                                "I'm giving you a free ride on the Uber app (up to Rs. 25). To accept, use code 'wmp9it' to sign up. Enjoy! Details https://www.uber.com/invite/wmp9it"
+//                        ).then((response){handleResponse(response,appName:"Whatsapp");});
+//                        //TODO: replace Rs.
+//                        FlutterShareMe().shareToWhatsApp(
+//                            msg:
+//                                "I'm giving you a free ride on the Uber app (up to Rs. 25). To accept, use code 'wmp9it' to sign up. Enjoy! Details https://www.uber.com/invite/wmp9it");
+                      },
                       textColor: Colors.white,
                       color: Colors.black,
                       child: new Text(
