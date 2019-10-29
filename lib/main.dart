@@ -1,7 +1,9 @@
 //import 'package:color/color.dart';
 //import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
+import 'package:intl/intl.dart';
 
 void main() => runApp(MyApp1());
 
@@ -24,6 +26,12 @@ class MyApp extends StatefulWidget {
   @override
   _MyAppState createState() => _MyAppState();
 }
+/*
+
+
+Code for ScheduleDialog
+
+ */
 
 //create google map class
 class _MyAppState extends State<MyApp> {
@@ -31,29 +39,44 @@ class _MyAppState extends State<MyApp> {
   final Set<Marker> _markers = new Set();
   static const LatLng _mainLocation = const LatLng(19.0737446, 72.8994785);
 
+  var _date = DateFormat("EEEE, MMM d").format(new DateTime.now());
+  var _time =
+      TimeOfDay(hour: DateTime.now().hour, minute: DateTime.now().minute);
+  var timet = DateFormat("jm").format(new DateTime.now());
+
+  //   TimeOfDay(hour: DateTime.now().hour, minute: DateTime.now().minute);
+
+//  var _time = DateFormat.jm();
+//  var _time=  ;
+
 //  static var screensize = size;
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.transparent,
-      appBar: AppBar(),
+      backgroundColor: Colors.white,
+      appBar: AppBar(
+        backgroundColor: Colors.black,
+      ),
       body: Stack(
 //
           children: <Widget>[
-            GoogleMap(
-              initialCameraPosition: CameraPosition(
-                target: _mainLocation,
-                zoom: 15.0,
-              ),
-              markers: this.myMarker(),
-              mapType: MapType.normal,
-              onMapCreated: (controller) {
-                setState(() {
-                  myMapController = controller;
-                });
-              },
-            ),
+            new Container(
+//                padding: EdgeInsets.fromLTRB(0, 0, 0, 0),
+                height: 300,
+                child: GoogleMap(
+                  initialCameraPosition: CameraPosition(
+                    target: _mainLocation,
+                    zoom: 15.0,
+                  ),
+                  markers: this.myMarker(),
+                  mapType: MapType.normal,
+                  onMapCreated: (controller) {
+                    setState(() {
+                      myMapController = controller;
+                    });
+                  },
+                )),
             Container(
 //                  margin: EdgeInsets.only(top: 80, right: 10),
               alignment: Alignment.bottomCenter,
@@ -79,7 +102,7 @@ class _MyAppState extends State<MyApp> {
                     ]),
                     new Row(children: <Widget>[
                       new Container(
-                          color: Colors.white,
+//                          color: Colors.white,
                           height: 60.0,
                           width: 225.0,
                           child: Padding(
@@ -87,17 +110,22 @@ class _MyAppState extends State<MyApp> {
                               child: new Container(
                                   height: 60,
                                   width: 115,
+//                                  color: Color.fromRGBO(239, 239, 239, 1.0),
+
 //                                  color: Colors.grey,
-                                  child: RaisedButton(
+                                  child: RawMaterialButton(
 //                                    textColor: Colors.black,
-//                                    color: Color.fromRGBO(255, 0, 255, 1),
+//                                        height: 1.0,
+//                                    color: Color.fromRGBO(239, 239, 239, 1.0),
                                     onPressed: null,
                                     child: Text(
                                       "Where to  ?",
                                       textAlign: TextAlign.center,
                                       style: new TextStyle(
-                                          fontSize: 18.0, color: Colors.white),
+                                          fontSize: 18.0, color: Colors.black),
                                     ),
+                                    fillColor:
+                                        Color.fromRGBO(239, 239, 239, 1.0),
                                   )))),
                       new Container(
                           color: Colors.white,
@@ -109,17 +137,287 @@ class _MyAppState extends State<MyApp> {
                                   height: 60,
                                   width: 132,
 //                                  color: Colors.green,
-                                  child: RaisedButton(
-                                    textColor: Colors.white,
+                                  child: RawMaterialButton(
+//                                    textColor: Colors.white,
 //                                    color: Colors.black,
 //                                    color: Color.fromRGBO(0, 0, 0, 1),
-                                    onPressed: null,
+                                    onPressed: () {
+                                      showDialog(
+                                          context: context,
+                                          builder: (BuildContext context) {
+                                            return Padding(
+                                                padding: EdgeInsets.fromLTRB(
+                                                    0, 200, 0, 0),
+                                                child: AlertDialog(
+                                                  content: Form(
+                                                    child: Container(
+                                                        height: 250,
+                                                        width: 400,
+                                                        alignment: Alignment
+                                                            .bottomCenter,
+                                                        child: Column(
+                                                          children: <Widget>[
+                                                            Container(
+                                                                padding:
+                                                                    EdgeInsets
+                                                                        .fromLTRB(
+                                                                            0,
+                                                                            0,
+                                                                            0,
+                                                                            15),
+                                                                child: Text(
+                                                                  "Schedule a Ride",
+                                                                  textAlign:
+                                                                      TextAlign
+                                                                          .center,
+                                                                  style: new TextStyle(
+                                                                      fontSize:
+                                                                          24.0,
+                                                                      color: Colors
+                                                                          .black),
+                                                                )),
+                                                            new Padding(
+                                                                padding:
+                                                                    EdgeInsets
+                                                                        .fromLTRB(
+                                                                            0,
+                                                                            0,
+                                                                            0,
+                                                                            0),
+                                                                child:
+                                                                    new Container(
+                                                                  height: 1.0,
+                                                                  color: Color
+                                                                      .fromRGBO(
+                                                                          239,
+                                                                          239,
+                                                                          239,
+                                                                          1.0),
+                                                                )),
+                                                            Container(
+                                                                padding:
+                                                                    EdgeInsets
+                                                                        .fromLTRB(
+                                                                            0,
+                                                                            15,
+                                                                            0,
+                                                                            15),
+                                                                child:
+                                                                    new GestureDetector(
+                                                                  child: Text(
+                                                                    "$_date",
+                                                                    textAlign:
+                                                                        TextAlign
+                                                                            .center,
+                                                                    style: new TextStyle(
+                                                                        fontSize:
+                                                                            24.0,
+                                                                        color: Colors
+                                                                            .black),
+                                                                  ),
+                                                                  onTap:
+                                                                      () async {
+//                                                                          DatePicker.showDatePicker(
+//                                                                              context,
+//                                                                              theme: DatePickerTheme(containerHeight: 210.0),
+//                                                                              showTitleActions: true, onConfirm: (date) {
+//                                                                            _date =
+//                                                                                '${date.weekday}, ${date.month} ${date.day}';
+//                                                                            setState(() {});
+//                                                                          });
+                                                                    final DateTime pick = await showDatePicker(
+                                                                        context:
+                                                                            context,
+                                                                        initialDate:
+                                                                            DateTime
+                                                                                .now(),
+                                                                        firstDate:
+                                                                            DateTime(
+                                                                                2017),
+                                                                        lastDate:
+                                                                            DateTime(2021));
+                                                                    if (pick !=
+                                                                            null &&
+                                                                        pick !=
+                                                                            _date) {
+                                                                      setState(
+                                                                          () {
+                                                                        _date =
+                                                                            DateFormat("EEEE, MMM d").format(pick);
+                                                                        //'${pick.weekday}, ${pick.month} ${pick.day}';
+                                                                      });
+                                                                      print("Date is " +
+                                                                          _date);
+                                                                    }
+                                                                  },
+                                                                )),
+                                                            new Padding(
+                                                                padding:
+                                                                    EdgeInsets
+                                                                        .fromLTRB(
+                                                                            0,
+                                                                            0,
+                                                                            0,
+                                                                            0),
+                                                                child:
+                                                                    new Container(
+                                                                  height: 1.0,
+                                                                  color: Color
+                                                                      .fromRGBO(
+                                                                          239,
+                                                                          239,
+                                                                          239,
+                                                                          1.0),
+                                                                )),
+                                                            Container(
+                                                                padding:
+                                                                    EdgeInsets
+                                                                        .fromLTRB(
+                                                                            0,
+                                                                            15,
+                                                                            0,
+                                                                            15),
+                                                                child:
+                                                                    new GestureDetector(
+                                                                  child: Text(
+                                                                    "$timet",
+                                                                    textAlign:
+                                                                        TextAlign
+                                                                            .center,
+                                                                    style: new TextStyle(
+                                                                        fontSize:
+                                                                            24.0,
+                                                                        color: Colors
+                                                                            .black),
+                                                                  ),
+                                                                  onTap:
+                                                                      () async {
+                                                                    final TimeOfDay
+                                                                        pick =
+                                                                        (await showTimePicker(
+                                                                      context:
+                                                                          context,
+                                                                      initialTime:
+                                                                          TimeOfDay
+                                                                              .now(),
+                                                                    ));
+
+//                                                                    final DateTime pick = await showDatePicker(
+//                                                                        context:
+//                                                                            context,
+//                                                                        initialDate:
+//                                                                            DateTime
+//                                                                                .now(),
+//                                                                        firstDate:
+//                                                                            DateTime(
+//                                                                                2017),
+//                                                                        lastDate:
+//                                                                            DateTime(2021));
+
+                                                                    setState(
+                                                                        () {
+                                                                      var _timetmp = TimeOfDay(
+                                                                          hour: pick
+                                                                              .hour,
+                                                                          minute:
+                                                                              pick.minute);
+                                                                      final now =
+                                                                          DateTime
+                                                                              .now();
+                                                                      final selectedTime = new DateTime(
+                                                                          now
+                                                                              .year,
+                                                                          now
+                                                                              .month,
+                                                                          now
+                                                                              .day,
+                                                                          _timetmp
+                                                                              .hour,
+                                                                          _timetmp
+                                                                              .minute);
+                                                                      timet = DateFormat(
+                                                                              "jm")
+                                                                          .format(
+                                                                              selectedTime);
+
+                                                                      //'${pick.weekday}, ${pick.month} ${pick.day}';
+                                                                    });
+                                                                    print("Date is " +
+                                                                        _date);
+                                                                  },
+                                                                )),
+                                                            new Padding(
+                                                                padding:
+                                                                    EdgeInsets
+                                                                        .fromLTRB(
+                                                                            0,
+                                                                            0,
+                                                                            0,
+                                                                            0),
+                                                                child:
+                                                                    new Container(
+                                                                  height: 1.0,
+                                                                  color: Color
+                                                                      .fromRGBO(
+                                                                          239,
+                                                                          239,
+                                                                          239,
+                                                                          1.0),
+                                                                )),
+                                                            Container(
+                                                                margin:
+                                                                    EdgeInsets.fromLTRB(
+                                                                        0,
+                                                                        10,
+                                                                        0,
+                                                                        15),
+                                                                color: Colors
+                                                                    .black,
+                                                                width: 350,
+                                                                height: 50,
+                                                                padding:
+                                                                    EdgeInsets
+                                                                        .fromLTRB(
+                                                                            0,
+                                                                            10,
+                                                                            0,
+                                                                            15),
+                                                                child:
+                                                                    new RaisedButton(
+                                                                  onPressed:
+                                                                      () {},
+                                                                  textColor:
+                                                                      Colors
+                                                                          .white,
+                                                                  color: Colors
+                                                                      .black,
+                                                                  child:
+                                                                      new Text(
+                                                                    "SET PICKUP TIME",
+                                                                    textAlign:
+                                                                        TextAlign
+                                                                            .center,
+                                                                    style: new TextStyle(
+                                                                        fontSize:
+                                                                            16.0,
+                                                                        color: Colors
+                                                                            .white),
+                                                                  ),
+                                                                ))
+                                                          ],
+                                                        )),
+                                                  ),
+                                                ));
+                                          });
+                                    },
                                     child: Text(
                                       "Schedule",
                                       textAlign: TextAlign.center,
                                       style: new TextStyle(
-                                          fontSize: 18.0, color: Colors.white),
+                                          fontSize: 18.0, color: Colors.black),
                                     ),
+                                    fillColor:
+                                        Color.fromRGBO(239, 239, 239, 1.0),
                                   )))),
                     ]),
                     new Row(
@@ -127,23 +425,145 @@ class _MyAppState extends State<MyApp> {
                         new Container(
                             alignment: Alignment.bottomLeft,
                             color: Colors.white,
-                            height: 60.0,
+                            height: 70.0,
                             width: 360.0,
                             child: Padding(
-                                padding: EdgeInsets.fromLTRB(20, 0, 0, 20),
-                                child: FlatButton.icon(
+                                padding: EdgeInsets.fromLTRB(0, 0, 0, 0),
+                                child: new Row(children: <Widget>[
+                                  RawMaterialButton(
                                     onPressed: null,
-                                    icon: Icon(Icons.stars),
-                                    label: Text(
-                                      "Choose a saved place",
-                                      textAlign: TextAlign.start,
-                                      style: new TextStyle(
-                                          color: Colors.black,
-                                          fontSize: 18.0,
-                                          fontWeight: FontWeight.bold),
-                                    ))))
+                                    child: IconTheme(
+                                        data:
+                                            IconThemeData(color: Colors.white),
+                                        child: Icon(Icons.home)),
+                                    shape: CircleBorder(),
+                                    fillColor: Colors.grey,
+                                  ),
+                                  new GestureDetector(
+                                      onTap: () {
+                                        Fluttertoast.showToast(
+                                            msg: "Home clicked");
+                                      },
+                                      child: new Column(children: <Widget>[
+                                        Padding(
+                                            padding: EdgeInsets.fromLTRB(
+                                                0, 15, 0, 0),
+                                            child: new Text("Home        ",
+                                                textAlign: TextAlign.left,
+                                                style: new TextStyle(
+                                                    color: Colors.black,
+                                                    backgroundColor:
+                                                        Colors.white,
+                                                    fontSize: 14.0,
+                                                    fontWeight:
+                                                        FontWeight.bold))),
+                                        Padding(
+                                            padding:
+                                                EdgeInsets.fromLTRB(0, 5, 0, 0),
+                                            child: new Text("Ghatkopar",
+                                                textAlign: TextAlign.start,
+                                                style: new TextStyle(
+                                                  color: Colors.black,
+                                                  backgroundColor: Colors.white,
+                                                  fontSize: 14.0,
+//                                                fontWeight: FontWeight.bold
+                                                ))),
+                                      ]))
+                                ])
+
+//                                FlatButton.icon(
+//                                    onPressed: null,
+//                                    icon: Icon(Icons.home),
+//                                    label: Text(
+//                                      "Home",
+//                                      textAlign: TextAlign.start,
+//                                      style: new TextStyle(
+//                                          color: Colors.black,
+//                                          fontSize: 18.0,
+//                                          fontWeight: FontWeight.bold),
+//                                    ))
+//
+                                )),
                       ],
                     ),
+                    new Padding(
+                        padding: EdgeInsets.fromLTRB(80, 0, 0, 0),
+                        child: new Container(
+                          height: 1.0,
+                          color: Color.fromRGBO(239, 239, 239, 1.0),
+                        )),
+                    new Row(
+                      children: <Widget>[
+                        new Container(
+                            alignment: Alignment.bottomLeft,
+                            color: Colors.white,
+                            height: 70.0,
+                            width: 360.0,
+                            child: Padding(
+                                padding: EdgeInsets.fromLTRB(0, 0, 0, 0),
+                                child: new Row(children: <Widget>[
+                                  RawMaterialButton(
+                                    onPressed: null,
+                                    child: IconTheme(
+                                        data:
+                                            IconThemeData(color: Colors.white),
+                                        child: Icon(Icons.work)),
+                                    shape: CircleBorder(),
+                                    fillColor: Colors.grey,
+                                  ),
+                                  new GestureDetector(
+                                      onTap: () {
+                                        Fluttertoast.showToast(
+                                            msg: "Work clicked");
+                                      },
+                                      child: new Column(children: <Widget>[
+                                        Padding(
+                                            padding: EdgeInsets.fromLTRB(
+                                                0, 15, 0, 0),
+                                            child: new Text("Work        ",
+                                                textAlign: TextAlign.start,
+                                                style: new TextStyle(
+                                                    color: Colors.black,
+                                                    backgroundColor:
+                                                        Colors.white,
+                                                    fontSize: 14.0,
+                                                    fontWeight:
+                                                        FontWeight.bold))),
+                                        Padding(
+                                            padding:
+                                                EdgeInsets.fromLTRB(0, 5, 0, 0),
+                                            child: new Text("Mumbai  ",
+                                                textAlign: TextAlign.start,
+                                                style: new TextStyle(
+                                                  color: Colors.black,
+                                                  backgroundColor: Colors.white,
+                                                  fontSize: 14.0,
+//                                                fontWeight: FontWeight.bold
+                                                ))),
+                                      ]))
+                                ])
+
+//                                FlatButton.icon(
+//                                    onPressed: null,
+//                                    icon: Icon(Icons.home),
+//                                    label: Text(
+//                                      "Home",
+//                                      textAlign: TextAlign.start,
+//                                      style: new TextStyle(
+//                                          color: Colors.black,
+//                                          fontSize: 18.0,
+//                                          fontWeight: FontWeight.bold),
+//                                    ))
+//
+                                )),
+                      ],
+                    ),
+                    new Padding(
+                        padding: EdgeInsets.fromLTRB(0, 0, 0, 5),
+                        child: new Container(
+                          height: 1.0,
+                          color: Color.fromRGBO(239, 239, 239, 1.0),
+                        )),
                     new Row(
                       children: <Widget>[
                         new Container(
@@ -152,17 +572,25 @@ class _MyAppState extends State<MyApp> {
                           width: 180.0,
                           child: Padding(
                             padding: EdgeInsets.fromLTRB(20, 0, 0, 15),
-                            child: FlatButton.icon(
-                                onPressed: null,
-                                icon: Icon(Icons.local_taxi),
-                                label: Text(
-                                  "Ride",
-                                  textAlign: TextAlign.start,
-                                  style: new TextStyle(
-                                      color: Colors.black,
-                                      fontSize: 18.0,
-                                      fontWeight: FontWeight.bold),
-                                )),
+                            child: RawMaterialButton(
+                              onPressed: null,
+                              child: IconTheme(
+                                  data: IconThemeData(color: Colors.white),
+                                  child: Icon(Icons.local_taxi)),
+                              shape: CircleBorder(),
+                              fillColor: Colors.black,
+                            ),
+//                            FlatButton.icon(
+//                                onPressed: null,
+//                                icon: Icon(Icons.local_taxi),
+//                                label: Text(
+//                                  "Ride",
+//                                  textAlign: TextAlign.start,
+//                                  style: new TextStyle(
+//                                      color: Colors.black,
+//                                      fontSize: 18.0,
+//                                      fontWeight: FontWeight.bold),
+//                                )),
                           ),
                         ),
                         new Container(
@@ -171,21 +599,74 @@ class _MyAppState extends State<MyApp> {
                           width: 180.0,
                           child: Padding(
                             padding: EdgeInsets.fromLTRB(20, 0, 10, 20),
-                            child: FlatButton.icon(
-                                onPressed: null,
-                                icon: Icon(Icons.restaurant),
-                                label: Text(
-                                  "Order Food",
-                                  textAlign: TextAlign.start,
-                                  style: new TextStyle(
-                                      color: Colors.black,
-                                      fontSize: 18.0,
-                                      fontWeight: FontWeight.bold),
-                                )),
+                            child: RawMaterialButton(
+                              onPressed: null,
+                              child: IconTheme(
+                                  data: IconThemeData(color: Colors.grey),
+                                  child: Icon(Icons.restaurant)),
+                              shape: CircleBorder(),
+//                              fillColor: Colors.black,
+                            ),
+//
+//                            FlatButton.icon(
+//                                onPressed: null,
+//                                icon: Icon(Icons.restaurant),
+//                                label: Text(
+//                                  "Order Food",
+//                                  textAlign: TextAlign.start,
+//                                  style: new TextStyle(
+//                                      color: Colors.black,
+//                                      fontSize: 18.0,
+//                                      fontWeight: FontWeight.bold),
+//                                )),
                           ),
                         )
                       ],
-                    )
+                    ),
+                    new Row(children: <Widget>[
+                      new Container(
+                          color: Colors.white,
+                          height: 15.0,
+                          width: 200.0,
+                          child: Padding(
+                              padding: EdgeInsets.fromLTRB(0, 0, 0, 3),
+                              child: new Container(
+                                height: 15.0,
+                                width: 180,
+//                                  color: Colors.grey,
+                                child: Text(
+                                  "Ride",
+                                  textAlign: TextAlign.center,
+                                  style: new TextStyle(
+                                      fontSize: 12.0,
+                                      color: Colors.black,
+                                      fontWeight: FontWeight.bold),
+                                ),
+                              ))),
+                      new Container(
+                          color: Colors.white,
+                          height: 15.0,
+                          width: 160.0,
+                          child: Padding(
+                              padding: EdgeInsets.fromLTRB(0, 0, 0, 3),
+                              child: new Container(
+                                height: 15,
+                                width: 160,
+//                                  color: Colors.green,
+                                child: Text(
+                                  "Order Food",
+                                  textAlign: TextAlign.center,
+                                  style: new TextStyle(
+                                      fontSize: 12.0, color: Colors.grey),
+                                ),
+                              ))),
+                    ]),
+                    new Padding(
+                        padding: EdgeInsets.fromLTRB(0, 0, 0, 5),
+                        child: new Container(
+                          height: 1.0,
+                          color: Color.fromRGBO(239, 239, 239, 1.0),
+                        )),
                   ]),
             ),
 //                FloatingActionButton(
