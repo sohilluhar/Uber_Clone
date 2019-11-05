@@ -13,13 +13,20 @@ class MyApp1 extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+        debugShowCheckedModeBanner: false,
         theme: ThemeData(
           primaryColor: Colors.black,
         ),
         routes: {
           "/Help": (context) => new HelpScreen(),
+          "/Trip": (context) => new YourTrip(),
+          "/Payment": (context) => new Payment(),
+          "/Setting": (context) => new Settings(),
           "/FreeRides": (context) => new FreeRides(),
           "/SelectDest": (context) => new MyApp3(),
+          "/Home": (context) => new MyApp(),
+          "/Book": (context) => new Book(),
+          "/Food": (context) => new UberEat()
         },
         home: new MyApp());
   }
@@ -67,11 +74,11 @@ class _MyAppState extends State<MyApp> {
           children: <Widget>[
             new Container(
 //                padding: EdgeInsets.fromLTRB(0, 0, 0, 0),
-                height: 300,
+                height: 290,
                 child: GoogleMap(
                   initialCameraPosition: CameraPosition(
                     target: _mainLocation,
-                    zoom: 15.0,
+                    zoom: 17.0,
                   ),
                   markers: this.myMarker(),
                   mapType: MapType.normal,
@@ -185,6 +192,9 @@ class _MyAppState extends State<MyApp> {
                                       onTap: () {
                                         Fluttertoast.showToast(
                                             msg: "Home clicked");
+
+                                        Navigator.pushNamed(
+                                            context, "/SelectDest");
                                       },
                                       child: new Column(children: <Widget>[
                                         Padding(
@@ -257,6 +267,9 @@ class _MyAppState extends State<MyApp> {
                                       onTap: () {
                                         Fluttertoast.showToast(
                                             msg: "Work clicked");
+
+                                        Navigator.pushNamed(
+                                            context, "/SelectDest");
                                       },
                                       child: new Column(children: <Widget>[
                                         Padding(
@@ -313,9 +326,9 @@ class _MyAppState extends State<MyApp> {
                           height: 60.0,
                           width: 180.0,
                           child: Padding(
-                            padding: EdgeInsets.fromLTRB(20, 0, 0, 15),
+                            padding: EdgeInsets.fromLTRB(20, 0, 0, 0),
                             child: RawMaterialButton(
-                              onPressed: null,
+                              onPressed: () {},
                               child: IconTheme(
                                   data: IconThemeData(color: Colors.white),
                                   child: Icon(Icons.local_taxi)),
@@ -340,9 +353,11 @@ class _MyAppState extends State<MyApp> {
                           height: 60.0,
                           width: 180.0,
                           child: Padding(
-                            padding: EdgeInsets.fromLTRB(20, 0, 10, 20),
+                            padding: EdgeInsets.fromLTRB(20, 0, 10, 0),
                             child: RawMaterialButton(
-                              onPressed: null,
+                              onPressed: () {
+                                Navigator.pushNamed(context, "/Food");
+                              },
                               child: IconTheme(
                                   data: IconThemeData(color: Colors.grey),
                                   child: Icon(Icons.restaurant)),
@@ -494,7 +509,7 @@ class _MyAppState extends State<MyApp> {
                 // Update the state of the app
                 // ...
                 // Then close the drawer
-                Navigator.pop(context);
+                Navigator.pushNamed(context, "/Trip");
               },
             ),
             ListTile(
@@ -525,7 +540,8 @@ class _MyAppState extends State<MyApp> {
                 // Update the state of the app
                 // ...
                 // Then close the drawer
-                Navigator.pop(context);
+
+                Navigator.pushNamed(context, "/Payment");
               },
             ),
             ListTile(
@@ -551,7 +567,8 @@ class _MyAppState extends State<MyApp> {
                 // Update the state of the app
                 // ...
                 // Then close the drawer
-                Navigator.pop(context);
+
+                Navigator.pushNamed(context, "/Setting");
               },
             ),
 //            Expanded(
@@ -716,7 +733,10 @@ class _MyDialogState extends State<MyDialog> {
                         height: 50,
                         padding: EdgeInsets.fromLTRB(0, 10, 0, 15),
                         child: new RaisedButton(
-                          onPressed: () {},
+                          onPressed: () {
+                            Fluttertoast.showToast(msg: "Ride is scheduled");
+                            Navigator.pop(context);
+                          },
                           textColor: Colors.white,
                           color: Colors.black,
                           child: new Text(
@@ -730,7 +750,6 @@ class _MyDialogState extends State<MyDialog> {
                 )),
           ),
         ));
-    ;
   }
 }
 
@@ -925,6 +944,77 @@ class FreeRides extends StatelessWidget {
           ]),
         ],
       ),
+    );
+  }
+}
+
+class YourTrip extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: Text("Choose a trip"),
+      ),
+      body: Center(
+        child: new Text(
+          "You haven't taken a trip yet.",
+          textAlign: TextAlign.center,
+          style: new TextStyle(fontSize: 16.0, color: Colors.black),
+        ),
+      ),
+    );
+  }
+}
+
+class Payment extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: Text("Payment"),
+      ),
+      body: Center(
+        child: new Text(
+          "Payment Page",
+          textAlign: TextAlign.center,
+          style: new TextStyle(fontSize: 16.0, color: Colors.black),
+        ),
+      ),
+    );
+  }
+}
+
+class Settings extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: Text("Setting"),
+      ),
+      body: Center(
+        child: new Text(
+          "Setting Page",
+          textAlign: TextAlign.center,
+          style: new TextStyle(fontSize: 16.0, color: Colors.black),
+        ),
+      ),
+    );
+  }
+}
+
+class UberEat extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: Text("Uber Eat"),
+      ),
+      body: Center(
+          child: new Icon(
+        Icons.fastfood,
+        color: Colors.green,
+        size: 200,
+      )),
     );
   }
 }
